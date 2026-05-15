@@ -20,3 +20,5 @@ rosdep install -r --from-paths src -i -y
 
 # Build workspace
 colcon build --symlink-install
+
+mkdir -p /workspaces/jackal_ws/clearpath
