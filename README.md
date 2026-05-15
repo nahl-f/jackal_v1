@@ -11,6 +11,10 @@ robot.yaml is stored in root of local directory, therefore must point simulation
 ```
 ros2 launch clearpath_gz simulation.launch.py setup_path:=/workspaces/jackal_ws
 ```
+Teleop:
+```
+ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -p stamped:=true -r cmd_vel:=/j100_0000/cmd_vel
+```
 
 ## Extra
 Image used as reference in Dockerfile : https://hub.docker.com/r/osrf/ros/ [https://hub.docker.com/r/osrf/ros/]
