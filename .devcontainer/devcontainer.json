@@ -1,0 +1,49 @@
+{
+    "name": "Jackal ROS2 Jazzy",
+
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".."
+    },
+
+    "initializeCommand": "xhost +local:docker",
+
+    // "workspaceFolder": "~/workspaces/jackal_ws",
+
+    "runArgs": [
+        "--net=host",
+        "--ipc=host",
+        "--privileged",
+
+        // Required for NVIDIA + X11 display forwarding to work together
+        "--gpus=all",
+        "--env=DISPLAY=${localEnv:DISPLAY}",
+
+        // Qt MIT shared memory fix
+        "--env=QT_X11_NO_MITSHM=1",
+        "--env=NVIDIA_VISIBLE_DEVICES=all",
+        "--env=NVIDIA_DRIVER_CAPABILITIES=all",
+
+        // X11 socket for display forwarding
+        "--volume=/tmp/.X11-unix:/tmp/.X11-unix:rw"
+    ],
+
+    "remoteEnv": {
+        "DISPLAY": "${localEnv:DISPLAY}"
+        // "CLEARPATH_CONFIG_DIR": "~/workspaces/jackal_ws"
+    },
+
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-iot.vscode-ros",
+                "ms-python.python",
+                "ms-vscode.cpptools",
+                "ms-vscode.cmake-tools"
+            ]
+        }
+    },
+    // Run setup script
+    "postCreateCommand": "$PWD/scripts/setup_clearpath.sh",
+    "remoteUser": "ubuntu"
+}
